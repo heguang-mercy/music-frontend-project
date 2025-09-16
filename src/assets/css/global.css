@@ -1,0 +1,159 @@
+/*css /* * 音乐播放器项目全局CSS文件 * 遵循UI规范：深蓝主色(#165DFF) + 亮黄辅色(#FFD700)，字体偏大，按钮尺寸适中 * 引入方式：在src/main.js中导入 import './assets/css/global.css' */
+    /* 1. 基础重置（消除浏览器默认样式） */
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* 防止文本选中时背景色干扰 */
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    font-family: "Microsoft YaHei", "Heiti SC", Arial, sans-serif;
+    background-color: #1A1A1A; /* 中性 - 黑，页面基础背景 */
+    color: #FFFFFF; /* 默认文本色 - 白 */
+    overflow-x: hidden; /* 禁止横向滚动 */
+}
+
+/* 图片 / 图标重置 */
+img {
+    vertical-align: middle;
+    border: none;
+}
+
+i {
+    font-style: normal; /* 消除图标默认倾斜 */
+}
+
+/* 链接重置 */
+a {
+text-decoration: none;
+color: inherit;
+transition: all 0.3s ease; /* 统一过渡效果 */
+}
+
+/* 列表重置 */
+ul, ol {
+    list-style: none;
+}
+
+/* 2. 全局字体样式（按 UI 规范定义层级）!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! /
+/ 页面标题：24px，加粗 */
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #FFFFFF;
+}
+
+/* 组件标题：20px，半加粗 */
+.component-title {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #FFFFFF;
+}
+
+/* 主要文本：18px，常规 */
+.main-text {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #FFFFFF;
+}
+
+/* 次要文本：16px，常规 */
+.sub-text {
+font-size: 16px;
+font-weight: 400;
+line-height: 1.5;
+color: #999999; /* 中性 - 浅灰 */
+}
+
+/* 提示文本：14px，常规 */
+.tip-text {
+font-size: 14px;
+font-weight: 400;
+line-height: 1.5;
+color: #999999; /* 中性 - 浅灰 */
+}
+
+/* 3. 全局按钮样式（主色 / 辅色 / 中性，偏大设计） !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/
+/ 主色按钮（深蓝色，默认态） */
+.btn-primary {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: 120px; /* 最小宽度，确保不缩小 */
+height: 48px;
+padding: 0 24px;
+background-color: #165DFF; /* 主色 - 深 */
+color: #FFFFFF;
+font-size: 18px;
+font-weight: 400;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0E4BDB; /* 主色 - hover */
+transform: scale(1.05); /* 轻微放大 */
+}
+
+.btn-primary:active {
+    background-color: #0A3CCC; /* 主色 - 点击 /
+transform: scale(0.98); /* 轻微缩小 */
+}
+
+.btn-primary:disabled {
+    background-color: #8BB4FF; /* 主色 - 禁用 */
+cursor: not-allowed;
+transform: none; /* 禁用缩放 */
+    opacity: 0.7;
+}
+
+/* 辅色按钮（亮黄色，高亮态） */
+.btn-secondary {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: 120px;
+height: 48px;
+padding: 0 24px;
+background-color: #FFD700; /* 辅色 - 亮 */
+color: #1A1A1A; /* 中性 - 黑，文字对比明显 */
+font-size: 18px;
+font-weight: 400;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #FFC800; /* 辅色 - hover */
+    transform: scale(1.05);
+}
+
+.btn-secondary:active {
+    background-color: #FFB700; /* 辅色 - 点击 */
+    transform: scale(0.98);
+}
+
+/* 中性按钮（灰色，次要操作） */
+.btn-neutral {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    height: 44px;
+    padding: 0 16px;
+    background-color: #333333; /* 中性 - 深灰 */
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+}

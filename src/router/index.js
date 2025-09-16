@@ -1,27 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import PlayListView from '../views/PlayListView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/PlayListView',
+    name: 'PlayListView',
+    component: PlayListView
   }
 ]
 
+// 启用 HTML5 History 模式（地址栏无 # 号）
 const router = new VueRouter({
-  routes
+  mode: 'history',
+  // mode: 'hash',   // 哈希模式（默认，地址栏有 # 号）
+  routes: routes// 传入上面定义的路由规则（可简写为 routes）
 })
 
 export default router
