@@ -4,16 +4,13 @@
       <!-- 导航项列表 -->
       <ul>
         <li class="nav-item">
-          <a href="#">首页</a>
+          <router-link to="/PlayListPage" class="page-title">我的音乐</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/PlayListView" class="page-title">我的音乐</router-link>
+          <router-link to="#" class="page-title">主题</router-link>
         </li>
         <li class="nav-item">
-          <a href="#">播放列表</a>
-        </li>
-        <li class="nav-item">
-          <a href="#">喜欢的音乐</a>
+          <router-link to="/PlayerPage" class="page-title">播放器</router-link>
         </li>
       </ul>
     </div>

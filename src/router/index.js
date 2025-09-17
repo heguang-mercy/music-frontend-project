@@ -1,14 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import PlayListView from '../views/PlayListView.vue'
+import PlayListPage from '../views/PlayListPage.vue'
+import PlayerPage from '../views/PlayerPage.vue'
+import LocalSongs from '@/views/LocalSongs.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/PlayListView',
-    name: 'PlayListView',
-    component: PlayListView
+    path: '/PlayListPage',
+    name: 'PlayListPage',
+    component: PlayListPage,
+    children: [
+      {
+        path: 'LocalSongs',
+        name: 'LocalSongs',
+        component: LocalSongs
+      }
+    ]
+  },
+  {
+    path: '/PlayerPage',
+    name: 'PlayerPage',
+    component: PlayerPage
   }
 ]
 
