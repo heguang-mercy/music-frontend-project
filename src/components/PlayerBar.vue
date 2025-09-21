@@ -73,11 +73,20 @@ export default {
 
 <style scoped>
 .play-bar {
+  border-radius: 5px 10px 15px 20px;
+  /* 核心：固定定位，让组件悬浮在窗口底部 */
+  position: fixed; /* 相对于浏览器窗口固定位置 */
+  bottom: 80px; /*离窗口底部0px（贴底） */
+  left: 80px; /* 距离窗口左侧0px */
+  right: 80px; /* 距离窗口右侧0px（实现全屏宽度） */
+  height: 60px; /* 组件高度 */
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  background: #f5f5f5;
+  padding: 0 20px;
   border-top: 1px solid #eee;
+  background-color: var(--color-btn);
+  /* 关键：设置z-index，确保悬浮在其他元素上方 */
+  z-index: 999; /* 数值越大，越靠上（避免被其他元素遮挡） */
 }
 
 .song-info {
@@ -95,15 +104,6 @@ export default {
 
 .progress-bar {
   height: 100%;
-  background: #42b983; /* Vue的绿色，可换成你的主题色 */
-}
-
-.btn-primary {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  background: #42b983;
-  color: white;
-  cursor: pointer;
+  background: #313b46; /* Vue的绿色，可换成你的主题色 */
 }
 </style>

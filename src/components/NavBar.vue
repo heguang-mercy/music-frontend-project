@@ -1,19 +1,37 @@
 <template>
-  <!-- 外层容器：纵向排列的导航栏 -->
-    <div class="vertical-nav">
-      <!-- 导航项列表 -->
-      <ul>
-        <li class="nav-item">
-          <router-link to="/PlayListPage" class="page-title">我的音乐</router-link>
+<!--  &lt;!&ndash; Navbar &ndash;&gt;-->
+  <nav class="navbar">
+    <ul class="navbar-item">
+     <div class="navbar-item-top">
+       <li class="navbar-item-inner flexbox-left">
+         <router-link to="/PlayListPage"  class="navbar-item-inner">
+           <div class="navbar-item-inner flexbox-left">
+             <ion-icon name="home-outline"></ion-icon>
+           </div>
+           <p class="navbar-item-inner flexbox-left">我的音乐</p>
+         </router-link>
+       </li>
+       <li class="navbar-item-inner flexbox-left">
+         <router-link to="/ThemeView" class="navbar-item-inner flexbox-left">
+           <div class="navbar-item-inner flexbox-left">
+             <ion-icon name="folder-open-outline"></ion-icon>
+           </div>
+           <p class="navbar-item-inner flexbox-left">主题</p>
+         </router-link>
+       </li>
+     </div>
+      <div class="navbar-item-bottom">
+        <li class="navbar-item-inner">
+          <router-link to="#" class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner flexbox-left">
+              <ion-icon name="pie-chart-outline"></ion-icon>
+            </div>
+            <span class="navbar-item-inner flexbox-left"></span>
+          </router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="#" class="page-title">主题</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/PlayerPage" class="page-title">播放器</router-link>
-        </li>
-      </ul>
-    </div>
+      </div>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -23,39 +41,51 @@ export default {
 }
 </script>
 
-<style>
-/* 导航栏整体样式：固定宽度，纵向排列 */
-.vertical-nav {
-  width: 200px;        /* 宽度固定，适合纵向导航 */
-  background-color: #333;  /* 深色背景 */
-  padding: 20px 0;     /* 上下内边距 */
-  height: 100vh;       /* 高度占满整个屏幕 */
-}
+<style scoped>
 
-/* 去掉列表默认样式 */
-.vertical-nav ul {
-  list-style: none;    /* 去掉默认圆点 */
-  padding: 0;
+.navbar {
   margin: 0;
+  height: 100vh;
+  background-color: var(--color-nav);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  align-items: center;
+  padding: 20px 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+  width: 16%;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px 10px 15px 20px;
 }
-
-/* 每个导航项样式 */
-.nav-item {
-  text-align: center;  /* 文字居中 */
-  margin: 10px 0;      /* 上下间距 */
+.navbar-item{
+  margin: auto;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  background-color: rgba(0, 0, 0, 0);
+  height: 90%;
 }
-
-/* 链接样式 */
-.nav-item a {
-  color: white;        /* 文字白色 */
-  text-decoration: none;  /* 去掉下划线 */
-  font-size: 18px;     /* 字体稍大，符合你的需求 */
-  display: block;      /* 让链接占满整个li，点击区域更大 */
-  padding: 10px;       /* 内边距，增大点击区域 */
+.navbar-item-top{
+  display: flex;
+  flex-direction: column;
 }
-
-/* 鼠标悬停效果 */
-.nav-item a:hover {
-  background-color: #165DFF;  /* 深蓝色背景（你的主色） */
+.navbar-item-inner{
+  margin: auto;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.navbar-item-inner:hover {
+  border-radius: 5px 10px 15px 20px;
+  background-color: var(--color-playbar);
+  transform: scale(0.98); /* 整体缩小2% */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 轻微阴影增强层次感 */
+}
+.navbar-item-bottom{
+  background-color: rgba(0, 0, 0, 0);
+  margin-top: auto; /* 自动占据剩余空间，将自身推到底部 */
+  margin-bottom: 0; /* 清除底部多余间距 */
 }
 </style>

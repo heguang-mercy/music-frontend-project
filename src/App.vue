@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="container-fluid">
-    <div class="row">
-      <div class="col-2 border p-3">
+    <div class="row g-0">
+      <div class="col-2 p-3">
         <NavBar />
       </div>
-      <div class="col-10 border p-3">
+      <div class="col-10 p-3">
         <router-view />
         <PlayerBar />
       </div>
@@ -29,7 +29,6 @@ export default {
 </script>
 
 <style>
-/* 去掉页面默认边距 */
 #app {
   margin: 0;
   padding: 0;

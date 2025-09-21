@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import PlayListPage from '../views/PlayListPage.vue'
 import PlayerPage from '../views/PlayerPage.vue'
 import LocalSongs from '@/views/LocalSongs.vue'
+import ThemeView from '@/views/ThemeView.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/PlayerPage',
     name: 'PlayerPage',
     component: PlayerPage
+  },
+  {
+    path: '/ThemeView',
+    name: 'ThemeView',
+    component: ThemeView
   }
 ]
 

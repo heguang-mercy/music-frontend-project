@@ -10,8 +10,6 @@
         :key="song.id"
         class="song-item"
         @dblclick="handleDoubleClick(song)">  <!-- 双击播放 -->
-        <!-- 新增固定文本，确认循环是否渲染 -->
-        <div>测试歌曲项：{{ song.id }}</div>
         <!-- 封面图 -->
       <img :src="song.cover" :alt="song.name" class="song-cover">
       <!-- 歌曲信息 -->
