@@ -46,7 +46,7 @@ li a {
   text-decoration: none;
 }
 
-/* 鼠标悬停时改变链接颜色 */
+/* 鼠标悬停时微小变化 */
 li a:hover {
   border-radius: 5px 10px 15px 20px;
   background-color: var(--color-btn);

@@ -79,7 +79,7 @@ export default {
   bottom: 80px; /*离窗口底部0px（贴底） */
   left: 80px; /* 距离窗口左侧0px */
   right: 80px; /* 距离窗口右侧0px（实现全屏宽度） */
-  height: 60px; /* 组件高度 */
+  height: 100px; /* 组件高度 */
   display: flex;
   align-items: center;
   padding: 0 20px;

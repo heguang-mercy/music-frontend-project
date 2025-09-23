@@ -73,6 +73,7 @@ export default {
   flex-direction: column;
 }
 .navbar-item-inner{
+  font-size:25px;
   margin: auto;
   color: var(--color-text);
   text-decoration: none;

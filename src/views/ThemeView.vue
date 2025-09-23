@@ -1,6 +1,6 @@
 <template>
   <div class="theme-page">
-    <h1>This is a theme page</h1>
+    <h1 class="page-title">This is a theme page</h1>
     <div class="button-group">
       <btn  class="theme-btn" @click="handleLightClick">亮色模式</btn>
       <btn class="theme-btn" @click="handleDarkClick">深色模式</btn>
@@ -82,4 +82,18 @@ export default {
   color: var(--color-text); /* 用主题变量 */
   font-size: 14px;
 }
+
+  .page-title {
+    font-size: 50px;
+    height: 90px;
+    font-weight: 600; /* 半粗，突出标题 */
+    line-height: 1.2;
+    word-spacing: 2px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  /* 按钮文字：轻微阴影，突出点击感 */
+  .theme-btn {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
 </style>
