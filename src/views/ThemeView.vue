@@ -1,6 +1,9 @@
 <template>
   <div class="theme-page">
-    <h1 class="page-title">This is a theme page</h1>
+    <div class="title-part">
+      <h1 class="page-title-1">This is a theme page</h1>
+      <h5 class="page-title-2">You can switch themes here</h5>
+    </div>
     <div class="button-group">
       <btn  class="theme-btn" @click="handleLightClick">亮色模式</btn>
       <btn class="theme-btn" @click="handleDarkClick">深色模式</btn>
@@ -9,7 +12,7 @@
 </template>
 
 <script>
-// 1. 从themeManager.js导入需要的方法（关键步骤！）
+//  从themeManager.js导入需要的方法（关键步骤！）
 import {
   switchToLightTheme,
   switchToDarkTheme,
@@ -20,12 +23,12 @@ export default {
   name: 'SettingPage',
   data () {
     return {
-      // 2. 获取当前主题，用于页面显示
+      //  获取当前主题，用于页面显示
       currentTheme: getCurrentTheme()
     }
   },
   methods: {
-    // 3. 亮色按钮点击事件：调用导入的switchToLightTheme
+    //  亮色按钮点击事件：调用导入的switchToLightTheme
     handleLightClick () {
       switchToLightTheme()
       // 更新页面显示的当前主题
@@ -83,17 +86,38 @@ export default {
   font-size: 14px;
 }
 
-  .page-title {
+  .page-title-1 {
+    text-align:center;
     font-size: 50px;
-    height: 90px;
     font-weight: 600; /* 半粗，突出标题 */
     line-height: 1.2;
     word-spacing: 2px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+  }
+  .page-title-2 {
+    text-align:center;
+    font-size: 20px;
+    height: 40px;
+    font-weight: 400; /* 常规字体 */
+    line-height: 1.2;
+    word-spacing: 2px;
+    color: var(--color-text);
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
   }
 
   /* 按钮文字：轻微阴影，突出点击感 */
   .theme-btn {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  title-part {
+    text-align: center;
+  }
+
+  .button-group {
+    margin: 20px 50px 100px 50px;
+    display: flex;
+    gap: 20px;
+    height: 80%;
   }
 </style>

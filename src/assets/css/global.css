@@ -14,22 +14,22 @@ body {
 }
 /* 1. 亮色主题变量（默认）：给 html 加 .theme-light 类时生效 */
 html.theme-light {
-    --color-bg: #fdfdfd; /* 页面背景色 */
-    --color-text: #434547; /* 文字颜色 */
-    --color-nav: rgb(241, 231, 173); /* 导航栏背景色 */
+    --color-bg: #fdfdfd;
+    --color-text: #434547;
+    --color-nav: rgb(241, 231, 173);
     --color-nav-text: #8e1e00;
-    --color-playbar: #fdd098; /* 播放条背景色 */
-    --color-btn: #fd7e4f; /* 按钮颜色（Vue 绿） */
+    --color-playbar: #fdd098;
+    --color-btn: #fd7e4f;
 }
 
 /* 2. 暗色主题变量：给 html 加 .theme-dark 类时生效 */
 html.theme-dark {
-    --color-bg: #0f1c2e; /* 页面背景色（深灰） */
-    --color-text: #fdfdfd; /* 文字颜色（浅灰） */
-    --color-nav: #1f3a5e; /* 导航栏背景色（深灰） */
+    --color-bg: #0f1c2e;
+    --color-text: #fdfdfd;
+    --color-nav: #1f3a5e;
     --color-nav-text: #1f2b3e;
-    --color-playbar: #4c638c; /* 播放条背景色（深灰） */
-    --color-btn: #6db9f1; /* 按钮颜色（Vue 蓝） */
+    --color-playbar: #4c638c;
+    --color-btn: #6db9f1;
 }
 
 /* 3. 应用变量到全局元素（确保所有组件继承这些样式） */
