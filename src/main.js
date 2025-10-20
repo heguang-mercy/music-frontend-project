@@ -10,12 +10,12 @@ import { initTheme } from './utils/themeManager.js'
 
 // 导入全局样式
 import './assets/css/global.css'
-// 导入 Bootstrap CSSoimport './assets/css/global.css'
+// 导入 Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css'
 // 导入 Bootstrap JS（如果需要用到交互组件，如弹窗、下拉菜单等）
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 // 导入 Font Awesome 图标
-import 'font-awesome/css/font-awesome.min.css'
+import 'font-awesome/css/font-awesome.css'
 
 initTheme()
 Vue.config.productionTip = false

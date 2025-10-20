@@ -3,24 +3,24 @@
     "id": 1,
     "name": "有趣",
     "singer": "单依纯",
-    "audio": "audios/yq.mp3",
-    "cover": "images/yq.webp",
+    "audio": "/audios/yq.mp3",
+    "cover": "/images/yq.webp",
     "lyric": "暂无歌词"
   },
   {
     "id": 2,
     "name": "蜃楼",
     "singer": "周深",
-    "audio": "audios/sl.mp3",
-    "cover": "images/sl.webp",
+    "audio": "/audios/sl.mp3",
+    "cover": "/images/sl.webp",
     "lyric": "暂无歌词"
   },
   {
     "id": 3,
     "name": "So Cynical",
     "singer": "LE SSERAFIM",
-    "audio": "audios/SoCynical.mp3",
-    "cover": "images/SoCynical.webp",
+    "audio": "/audios/SoCynical.mp3",
+    "cover": "/images/SoCynical.webp",
     "lyric": "暂无歌词"
   }
 ]

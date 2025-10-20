@@ -3,7 +3,9 @@ body {
     margin: 0;
     padding: 0;
     transition: background-color 0.3s ease, color 0.3s ease; /* 主题切换时的平滑动画 */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
 .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -12,6 +14,27 @@ body {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-btn);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-nav-text);
+}
+
 /* 1. 亮色主题变量（默认）：给 html 加 .theme-light 类时生效 */
 html.theme-light {
     --color-bg: #fdfdfd;
@@ -20,6 +43,9 @@ html.theme-light {
     --color-nav-text: #8e1e00;
     --color-playbar: #fdd098;
     --color-btn: #fd7e4f;
+    --color-card: #ffffff;
+    --color-border: #e0e0e0;
+    --color-hover: #f5f5f5;
 }
 
 /* 2. 暗色主题变量：给 html 加 .theme-dark 类时生效 */
@@ -30,14 +56,51 @@ html.theme-dark {
     --color-nav-text: #1f2b3e;
     --color-playbar: #4c638c;
     --color-btn: #6db9f1;
+    --color-card: #1a2a40;
+    --color-border: #2d4263;
+    --color-hover: #253a57;
 }
 
-/* 3. 应用变量到全局元素（确保所有组件继承这些样式） */
+/* 3. 紫色主题变量 */
+html.theme-purple {
+    --color-bg: #f0e6ff;
+    --color-text: #4b2e83;
+    --color-nav: #d8b9ff;
+    --color-nav-text: #5d3d99;
+    --color-playbar: #c4a7e6;
+    --color-btn: #9b59b6;
+    --color-card: #ffffff;
+    --color-border: #d9c2f0;
+    --color-hover: #ede2f7;
+}
+
+/* 4. 蓝色主题变量 */
+html.theme-blue {
+    --color-bg: #e3f2fd;
+    --color-text: #0d47a1;
+    --color-nav: #90caf9;
+    --color-nav-text: #1565c0;
+    --color-playbar: #64b5f6;
+    --color-btn: #2196f3;
+    --color-card: #ffffff;
+    --color-border: #bbdefb;
+    --color-hover: #e3f2fd;
+}
+
+/* 应用变量到全局元素（确保所有组件继承这些样式） */
 html.theme-light body {
     background-color: var(--color-bg);
     color: var(--color-text);
 }
 html.theme-dark body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+html.theme-purple body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+html.theme-blue body {
     background-color: var(--color-bg);
     color: var(--color-text);
 }
@@ -48,14 +111,101 @@ html.theme-dark body {
 }
 
 .theme-btn {
-    padding: 6px 12px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     background-color: var(--color-btn);
     color: white;
     cursor: pointer;
     margin: 0 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-p{
+
+.theme-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.page-title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-btn);
+    position: relative;
+    animation: slideInLeft 0.5s ease;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.main-text {
+    color: var(--color-text);
+}
+
+.sub-text {
+    color: var(--color-nav-text);
+    opacity: 0.8;
+}
+
+.btn-primary {
+    background-color: var(--color-btn);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+    background-color: var(--color-nav);
+    color: var(--color-nav-text);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-playbar);
+}
+
+.component-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+p {
     margin: 0;
 }
