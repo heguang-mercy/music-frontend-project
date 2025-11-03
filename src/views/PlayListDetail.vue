@@ -1,15 +1,15 @@
 <template>
   <div class="local-songs-page">
     <!-- 歌单标题 + 返回按钮 + 添加歌曲按钮 -->
-    <div class="playlist-header d-flex justify-content-between align-items-center mb-3">
+    <div class="playlist-header d-flex justify-content-between align-items-center mb-4">
       <h1 class="page-title">{{ currentPlaylist.name || '歌单详情' }}</h1>
-      <div>
+      <div class="header-actions">
         <!-- 新增：添加歌曲按钮 -->
-        <button class="btn-operation btn-primary mr-2" @click="showAddSongModal = true">
+        <button class="btn-operation btn-primary mr-3" @click="showAddSongModal = true">
           <span>+ 添加歌曲</span>
         </button>
         <!-- 返回按钮 -->
-        <button class="btn-operation" @click="$router.push('/PlayListPage/PlayList')">
+        <button class="btn-operation btn-secondary" @click="$router.push('/PlayListPage/PlayList')">
           返回歌单列表
         </button>
       </div>
@@ -46,7 +46,7 @@
 
     <!-- 👇 新增：添加歌曲的模态框（显示所有本地歌曲） -->
     <div v-if="showAddSongModal" class="modal-overlay" @click="showAddSongModal = false">
-      <div class="modal-content" @click.stop style="width: 480px; max-height: 80vh; overflow-y: auto;">
+      <div class="modal-content" @click.stop>
         <h3 class="modal-title">选择本地歌曲添加</h3>
 
         <!-- 所有本地歌曲列表 -->
@@ -65,7 +65,7 @@
             </div>
             <!-- 按钮：已添加则禁用，未添加则可选择 -->
             <button
-              class="btn-operation btn-sm"
+              class="btn-operation btn-sm add-song-btn"
               :class="{ 'btn-disabled': isSongAdded(song.id), 'btn-primary': !isSongAdded(song.id) }"
               @click.stop="addSongToPlaylist(song.id)"
               :disabled="isSongAdded(song.id)"
@@ -85,32 +85,28 @@
 
 <script>
 import storage from '@/utils/storage'
-import songsData from '@/assets/data/songs.json' // 导入所有本地歌曲（核心：不依赖 LocalSongs 页面）
+import songsData from '@/assets/data/songs.json'
 import player from '@/utils/player'
 
 export default {
   name: 'PlaylistDetail',
   data () {
     return {
-      currentPlaylist: {}, // 当前歌单
-      playlistSongs: [], // 歌单中已添加的歌曲
-      allSongs: songsData, // 所有本地歌曲（直接从 json 读取，不碰 LocalSongs）
-      showAddSongModal: false // 添加歌曲模态框显示状态
+      currentPlaylist: {},
+      playlistSongs: [],
+      allSongs: songsData,
+      showAddSongModal: false
     }
   },
   mounted () {
-    // 初始化：获取当前歌单 + 匹配已添加歌曲
     this.initCurrentPlaylist()
   },
   methods: {
-    // 初始化当前歌单数据
     initCurrentPlaylist () {
-      // 👇 1. 获取路由参数（自动解码中文 ID，原类型是字符串）
       const playlistId = this.$route.params.id
       console.log('详情页获取的 ID（字符串）：', playlistId)
 
       const allPlaylists = storage.get('playlists') || []
-      // 👇 2. 统一转字符串对比（兼容歌单 ID 是数字/中文/英文）
       this.currentPlaylist = allPlaylists.find(p => String(p.id) === playlistId) || {}
 
       if (Object.keys(this.currentPlaylist).length === 0) {
@@ -118,17 +114,14 @@ export default {
         this.$router.push('/PlayListPage/PlayList')
         return
       }
-      this.matchPlaylistSongs() // 匹配歌曲（同样适配任意类型歌曲 ID）
+      this.matchPlaylistSongs()
     },
 
-    // 匹配歌单中已添加的歌曲（通过 songIds 筛选）
     matchPlaylistSongs () {
-      // 👇 3. 歌曲 ID 也统一转字符串对比（兼容歌曲 ID 是中文/数字/英文）
       const songIds = this.currentPlaylist.songIds?.map(id => String(id)) || []
       this.playlistSongs = this.allSongs.filter(song => songIds.includes(String(song.id)))
     },
 
-    // 👇 4. 新增歌曲时也适配任意类型 ID
     isSongAdded (songId) {
       return this.currentPlaylist.songIds?.map(id => String(id)).includes(String(songId)) || false
     },
@@ -138,11 +131,9 @@ export default {
         this.$message.warning('该歌曲已在歌单中！')
         return
       }
-      // 转字符串存储歌曲 ID
       const newSongIds = [...(this.currentPlaylist.songIds || []), String(songId)]
       this.currentPlaylist.songIds = newSongIds
 
-      // 同步更新本地存储
       const allPlaylists = storage.get('playlists') || []
       const updatedPlaylists = allPlaylists.map(p => {
         if (String(p.id) === String(this.currentPlaylist.id)) {
@@ -154,36 +145,32 @@ export default {
       this.matchPlaylistSongs()
       this.$message.success('歌曲添加成功！')
     },
-    // 从歌单移除歌曲（原有方法不变）
+
     removeSongFromPlaylist (songId) {
-      // 👇 关键修复：将存储的 songIds 转成字符串，再与字符串类型的 songId 对比
       const newSongIds = this.currentPlaylist.songIds
-        ?.map(id => String(id)) // 所有存储的 ID 转字符串
-        .filter(id => id !== String(songId)) || [] // 与字符串类型的 songId 对比
+        ?.map(id => String(id))
+        .filter(id => id !== String(songId)) || []
 
       this.currentPlaylist.songIds = newSongIds
 
-      // 👇 同步修复：更新本地存储时，也用字符串 ID 对比歌单 ID
       const allPlaylists = storage.get('playlists') || []
       const updatedPlaylists = allPlaylists.map(p => {
-        if (String(p.id) === String(this.currentPlaylist.id)) { // 统一转字符串对比
+        if (String(p.id) === String(this.currentPlaylist.id)) {
           return { ...p, songIds: newSongIds }
         }
         return p
       })
       storage.set('playlists', updatedPlaylists)
 
-      this.matchPlaylistSongs() // 刷新歌单歌曲列表
+      this.matchPlaylistSongs()
       this.$message.success('歌曲已移除')
     },
-    // 播放歌曲（原有方法不变，适配你的 audio 字段）
+
     playSong (song) {
-      // 直接使用 song.audio（你的 songs.json 中是 audio 字段，无需拼接）
       const currentSong = player.playSong(song)
       this.$bus.$emit('songChanged', currentSong)
     },
 
-    // 辅助方法：处理图片错误
     handleSongSelect (song) {},
     handleImageError (event) {
       event.target.style.display = 'none'
@@ -193,150 +180,127 @@ export default {
 </script>
 
 <style scoped>
-/* 原有样式不变，新增以下模态框相关样式 */
-/* 布局辅助类（flex） */
+:root {
+  --primary-color: #3498db;
+  --primary-hover: #2980b9;
+  --secondary-bg: #f8f9fa;
+  --border-color: #e1e8ed;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --danger-color: #e74c3c;
+  --danger-hover: #c0392b;
+  --success-color: #27ae60;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+/* 布局辅助类 */
 .d-flex { display: flex; }
 .justify-content-between { justify-content: space-between; }
 .align-items-center { align-items: center; }
-.mr-2 { margin-right: 8px; }
+.mr-3 { margin-right: 16px; }
 
-/* 添加歌曲模态框样式 */
-.all-songs-list { margin: 16px 0; }
-.all-song-item {
-  padding: 12px;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.2s;
+/* 页面主容器 */
+.local-songs-page {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.all-song-item:hover { background-color: #f5f5f5; }
-.small-cover {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  margin-right: 12px;
-  object-fit: cover;
+
+/* 页面标题 */
+.page-title {
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 0 10px;
+  animation: fadeIn 0.5s ease;
 }
-.song-info-small {
-  min-width: 0; /* 解决文字溢出 */
+
+/* 头部操作区域 */
+.header-actions {
+  display: flex;
+  gap: 12px;
 }
-.song-name-small {
-  font-size: 14px;
+
+/* 歌曲列表容器 */
+.songs-list {
+  margin-top: 30px;
+}
+
+/* 空状态提示 */
+.empty-state {
+  padding: 80px 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  background-color: var(--secondary-bg);
+  border-radius: 12px;
+  font-size: 18px;
   font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  box-shadow: var(--card-shadow);
 }
-.song-singer-small {
-  font-size: 12px;
-  color: #999;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.btn-disabled {
-  background-color: #f5f5f5 !important;
-  color: #999 !important; /* 强制灰色文字 */
-  border: 1px solid #e0e0e0 !important;
-  cursor: not-allowed !important;
-  min-width: 70px !important;
-  text-align: center !important;
-}
-/* 原有样式保留 */
-.local-songs-page { padding: 20px; }
-.playlist-header { margin-bottom: 20px; }
-.songs-list { margin-top: 20px; }
+
+/* 歌曲项卡片 */
 .song-item {
   display: flex;
   align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid var(--color-border);
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-}
-.song-item:hover {
-  background-color: var(--color-hover);
-  transform: translateX(5px);
-}
-.song-cover {
-  width: 60px;
-  height: 60px;
+  background: #fff;
   border-radius: 8px;
-  margin-right: 15px;
+  margin-bottom: 12px;
+  box-shadow: var(--card-shadow);
+}
+
+.song-item:hover {
+  background-color: #f8f9ff;
+  transform: translateY(-2px);
+  box-shadow: var(--hover-shadow);
+}
+
+/* 歌曲封面 */
+.song-cover {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  margin-right: 20px;
   object-fit: cover;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
 }
-.song-item:hover .song-cover { transform: scale(1.05); }
-.song-info { flex: 1; }
-.song-name {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  line-height: 1.2;
+
+.song-item:hover .song-cover {
+  transform: scale(1.05);
 }
+
+/* 歌曲信息 */
+.song-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.song-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .song-singer {
   font-size: 16px;
-  color: var(--color-nav-text);
-  line-height: 1.2;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.play-button-mobile { display: none; color: var(--color-btn); }
-.empty-state {
-  padding: 60px 20px;
-  text-align: center;
-  color: #999;
-  background-color: #fafafa;
-  border-radius: 6px;
-}
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.modal-content {
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-.modal-title {
-  margin: 0 0 16px;
-  color: #333;
-  font-size: 18px;
-  font-weight: 500;
-}
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 16px;
-}
-.btn-primary {
-  background-color: #4299b9 !important;
-  color: white !important; /* 强制白色文字，与绿色背景对比 */
-  border: none !important;
-  padding: 8px 16px !important;
-  border-radius: 4px !important;
-  cursor: pointer !important;
-  font-size: 14px !important;
-  white-space: nowrap !important;
-  min-width: 80px !important;
-}
-.btn-secondary {
-  background-color: #f5f5f5;
-  color: #666;
-  border: 1px solid #e0e0e0;
-  padding: 7px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
+
+/* 操作按钮 */
 .btn-operation {
   padding: 4px 10px;
   border-radius: 3px;
@@ -350,22 +314,302 @@ export default {
   text-align: center !important; /* 文字居中 */
   display: inline-block !important; /* 确保文字不被隐藏 */
 }
+
+.btn-operation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 主要按钮 */
+.btn-primary {
+  background-color: #42b983 !important;
+  color: white !important; /* 强制白色文字，与绿色背景对比 */
+  border: none !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  white-space: nowrap !important;
+  min-width: 80px !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+}
+
+/* 次要按钮 */
+.btn-secondary {
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-width: 120px; /* 增加最小宽度 */
+}
+
+.btn-secondary:hover {
+  background-color: #e9ecef;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 危险操作按钮 */
 .btn-danger {
-  color: #594dff !important; /* 强制红色文字 */
+  color: #ff4d4f !important; /* 强制红色文字 */
   border-color: #ffccc7 !important;
   background-color: #fff5f5 !important;
   min-width: 70px !important;
   text-align: center !important;
 }
 
-/* 响应式样式 */
+.btn-danger:hover {
+  background-color: #fdf2f2 !important;
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+/* 添加歌曲按钮特殊样式 */
+.add-song-btn {
+  min-width: 80px; /* 确保添加按钮有足够的宽度 */
+}
+
+/* 禁用按钮 */
+.btn-disabled {
+  background-color: #f5f5f5 !important;
+  color: #999 !important; /* 强制灰色文字 */
+  border: 1px solid #e0e0e0 !important;
+  cursor: not-allowed !important;
+  min-width: 70px !important;
+  text-align: center !important;
+}
+
+/* 模态框 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 520px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  margin: 0 0 24px;
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 所有歌曲列表 */
+.all-songs-list {
+  margin: 20px 0;
+}
+
+.all-song-item {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.all-song-item:hover {
+  background-color: var(--secondary-bg);
+}
+
+.small-cover {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  margin-right: 16px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.song-info-small {
+  min-width: 0;
+  flex: 1;
+}
+
+.song-name-small {
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.song-singer-small {
+  font-size: 14px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 模态框底部 */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* 移动端播放按钮 */
+.play-button-mobile {
+  display: none;
+  color: var(--primary-color);
+}
+
+/* 响应式设计 */
 @media (max-width: 768px) {
-  .local-songs-page { padding: 15px; }
-  .song-item { padding: 12px; }
-  .song-cover { width: 50px; height: 50px; margin-right: 12px; }
-  .song-name { font-size: 16px; }
-  .song-singer { font-size: 14px; }
-  .play-button-mobile { display: block; }
-  .modal-content { width: 90vw !important; }
+  .local-songs-page {
+    padding: 20px 15px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .btn-operation {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 85px; /* 调整移动端最小宽度 */
+  }
+
+  .song-item {
+    padding: 16px;
+    margin-bottom: 8px;
+  }
+
+  .song-cover {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+  }
+
+  .song-name {
+    font-size: 18px;
+  }
+
+  .song-singer {
+    font-size: 15px;
+  }
+
+  .modal-content {
+    width: 90vw;
+    padding: 20px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .play-button-mobile {
+    display: block;
+    margin-left: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .local-songs-page {
+    padding: 15px 10px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-operation {
+    padding: 10px 16px;
+    font-size: 14px;
+    min-width: 80px; /* 调整移动端最小宽度 */
+  }
+
+  .btn-secondary {
+    min-width: 100px; /* 调整返回按钮宽度 */
+  }
+
+  .song-item {
+    padding: 12px;
+  }
+
+  .song-cover {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+  }
+
+  .song-name {
+    font-size: 16px;
+  }
+
+  .song-singer {
+    font-size: 14px;
+  }
+
+  .modal-content {
+    padding: 15px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .all-song-item {
+    padding: 12px;
+  }
+
+  .small-cover {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+
+  .song-name-small {
+    font-size: 15px;
+  }
+
+  .song-singer-small {
+    font-size: 13px;
+  }
+
+  .add-song-btn {
+    min-width: 70px; /* 移动端添加按钮最小宽度 */
+    padding: 8px 12px;
+    font-size: 13px;
+  }
 }
 </style>
