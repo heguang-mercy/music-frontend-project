@@ -7,7 +7,8 @@
           <router-link to="/PlayListPage/LocalSongs" class="tab-link" active-class="active">单曲</router-link>
         </li>
         <li class="tab-item">
-          <a href="#playlist" class="tab-link">歌单</a>
+          <!-- 在App.vue的template中添加 -->
+          <router-link to="/PlayListPage/PlayList" class="tab-link" active-class="active">歌单</router-link>
         </li>
         <li class="tab-item">
           <a href="#artist" class="tab-link">歌手</a>

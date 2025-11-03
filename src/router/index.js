@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import PlayListPage from '../views/PlayListPage.vue'
-import PlayerPage from '../views/PlayerPage.vue'
+import PlayList from '../views/PlayList.vue'
 import LocalSongs from '@/views/LocalSongs.vue'
 import ThemeView from '@/views/ThemeView.vue'
+import PlayListDetail from '@/views/PlayListDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -12,18 +13,29 @@ const routes = [
     path: '/PlayListPage',
     name: 'PlayListPage',
     component: PlayListPage,
+    redirect: '/PlayListPage/LocalSongs',
     children: [
       {
         path: 'LocalSongs',
         name: 'LocalSongs',
         component: LocalSongs
+      },
+      {
+        path: 'Playlist',
+        name: 'Playlist',
+        component: PlayList
+      },
+      {
+        path: 'PlaylistDetail/:id', // 动态路由：传递歌单 ID
+        name: 'PlayListDetail',
+        component: PlayListDetail
       }
     ]
   },
   {
-    path: '/PlayerPage',
+    path: '/PlayList',
     name: 'PlayerPage',
-    component: PlayerPage
+    component: PlayList
   },
   {
     path: '/ThemeView',
