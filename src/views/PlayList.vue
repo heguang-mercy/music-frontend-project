@@ -9,11 +9,12 @@
         暂无歌单，点击"创建歌单"开始添加吧~
       </div>
 
-      <div v-for="playlist in playlists" :key="playlist.id" class="playlist-item">
+      <!-- 核心修改：添加双击事件 @dblclick，按钮添加 @click.stop 阻止冒泡 -->
+      <div v-for="playlist in playlists" :key="playlist.id" class="playlist-item" @dblclick="enterPlaylist(playlist.id)">
         <span class="playlist-name">{{ playlist.name }}</span>
         <div class="playlist-actions">
-          <button class="btn-operation" @click="enterPlaylist(playlist.id)">进入</button>
-          <button class="btn-operation btn-danger" @click="deletePlaylist(playlist.id)">删除</button>
+          <button class="btn-operation" @click.stop="enterPlaylist(playlist.id)">进入</button>
+          <button class="btn-operation btn-danger" @click.stop="deletePlaylist(playlist.id)">删除</button>
         </div>
       </div>
     </div>
@@ -173,6 +174,7 @@ export default {
   font-weight: 500;
 }
 
+/* 核心修改：新增 cursor: pointer 提示可交互 */
 .playlist-item {
   display: flex;
   justify-content: space-between;
@@ -180,6 +182,7 @@ export default {
   padding: 16px 24px;
   border-bottom: 1px solid #e9ecef;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .playlist-item:last-child {

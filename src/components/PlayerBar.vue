@@ -231,7 +231,7 @@ export default {
 .play-pause-btn{width:50px;height:50px;font-size:30px;background:var(--color-btn);color:#fff}
 .play-pause-btn:hover{transform:scale(1.1)}
 @media (max-width:768px){
-  .play-bar-wrapper{width:calc(100%-20px);left:10px;transform:none;bottom:-70px}
+  .play-bar-wrapper{width:calc(100%- 20px);left:10px;transform:none;bottom:-70px}
   .play-bar-wrapper:hover,.play-bar-wrapper.show{bottom:10px}
   .song-cover-container{width:50px;height:50px}
   .current-song-progress-wrapper{height:3px}
@@ -239,4 +239,3 @@ export default {
   .progress-thumb{width:14px;height:14px}
 }
 </style>
-
