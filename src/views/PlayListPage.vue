@@ -11,7 +11,7 @@
           <router-link to="/PlayListPage/PlayList" class="tab-link" active-class="active">歌单</router-link>
         </li>
         <li class="tab-item">
-          <a href="#artist" class="tab-link">歌手</a>
+          <router-link to="/PlayListPage/artists" class="tab-link" active-class="active">歌手</router-link>
         </li>
       </ul>
     </div>
