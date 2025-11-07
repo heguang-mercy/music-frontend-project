@@ -12,10 +12,10 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/Login'
+    redirect: '/login'
   },
   {
-    path: '/Login',
+    path: '/login',
     name: 'Login',
     component: LoginPage
   },
@@ -36,7 +36,7 @@ const routes = [
         component: PlayList
       },
       {
-        path: 'PlaylistDetail/:id',
+        path: 'PlaylistDetail/:id', // 动态路由：传递歌单 ID
         name: 'PlayListDetail',
         component: PlayListDetail
       }
@@ -54,9 +54,10 @@ const routes = [
   }
 ]
 
+// 启用 HTML5 History 模式（地址栏无 # 号）
 const router = new VueRouter({
   mode: 'history',
-  routes: routes
+  routes
 })
 
 export default router
