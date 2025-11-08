@@ -1,5 +1,6 @@
 <template>
-  <div class="play-bar-wrapper" @mouseenter="show = true" @mouseleave="show = false">
+  <div class="play-bar-wrapper" @mouseenter="show = true" @mouseleave="show = false"
+  >
     <div class="play-bar card">
 
       <!-- 歌曲信息 -->
@@ -190,7 +191,7 @@ export default {
     },
 
     togglePage () {
-      const target = '/first-image'
+      const target = '/MusicPlayer'
       if (this.$route.path === target && this.fromPath) {
         this.$router.push(this.fromPath)
         this.fromPath = null
@@ -493,4 +494,3 @@ export default {
   }
 }
 </style>
-
