@@ -6,6 +6,7 @@ import LocalSongs from '@/views/LocalSongs.vue'
 import ThemeView from '@/views/ThemeView.vue'
 import PlayListDetail from '@/views/PlayListDetail.vue'
 import LoginPage from '@/views/LoginPage.vue'
+import MusicPlayer from '@/components/MusicPlayer.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,10 @@ const routes = [
         path: 'PlaylistDetail/:id', // 动态路由：传递歌单 ID
         name: 'PlayListDetail',
         component: PlayListDetail
+      },
+      {
+        path: '/MusicPlayer',
+        component: MusicPlayer
       }
     ]
   },
