@@ -2,11 +2,11 @@
   <div id="app" class="container-fluid">
     <div class="row g-0">
       <div class="col-2 p-3">
-        <NavBar />
+        <NavBar v-if="!isLogin" />
       </div>
       <div class="col-10 p-3">
         <router-view />
-        <PlayerBar />
+        <PlayerBar v-if="!isLogin" />
       </div>
     </div>
   </div>
@@ -24,6 +24,11 @@ export default {
   components: {
     NavBar,
     PlayerBar
+  },
+  computed: {
+    isLogin () {
+      return this.$route.path === '/login'
+    }
   }
 }
 </script>
