@@ -5,11 +5,23 @@ import PlayList from '../views/PlayList.vue'
 import LocalSongs from '@/views/LocalSongs.vue'
 import ThemeView from '@/views/ThemeView.vue'
 import PlayListDetail from '@/views/PlayListDetail.vue'
+import LoginPage from '@/views/LoginPage.vue'
+import MusicPlayer from '@/components/MusicPlayer.vue'
 import ArtistView from '@/views/ArtistView.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/login'
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage
+  },
   {
     path: '/PlayListPage',
     name: 'PlayListPage',
@@ -35,6 +47,10 @@ const routes = [
         path: 'artists',
         name: 'Artists',
         component: ArtistView
+      },
+      {
+        path: '/MusicPlayer',
+        component: MusicPlayer
       }
     ]
   },
