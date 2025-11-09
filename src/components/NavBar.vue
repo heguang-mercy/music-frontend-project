@@ -20,16 +20,6 @@
           </router-link>
         </li>
       </div>
-      <div class="navbar-item-bottom">
-        <li class="navbar-item-inner">
-          <router-link to="#" class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner flexbox-left">
-              <ion-icon name="pie-chart-outline"></ion-icon>
-            </div>
-            <span class="navbar-item-inner flexbox-left"></span>
-          </router-link>
-        </li>
-      </div>
     </ul>
   </nav>
 </template>
@@ -64,11 +54,10 @@ export default {
 }
 
 .navbar-item {
-  margin: auto;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
-  margin-right: auto;
+  margin: auto;
   background-color: rgba(0, 0, 0, 0);
   height: 90%;
 }

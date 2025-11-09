@@ -9,7 +9,6 @@ import LoginPage from '@/views/LoginPage.vue'
 import MusicPlayer from '@/components/MusicPlayer.vue'
 import ArtistView from '@/views/ArtistView.vue'
 
-
 Vue.use(VueRouter)
 
 const routes = [
