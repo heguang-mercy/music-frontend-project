@@ -1,18 +1,18 @@
 [
   {
-    "id": 1,
-    "name": "有趣",
+    "id":1 ,
+    "name": "我管不住我自己",
     "singer": "单依纯",
-    "audio": "/audios/yq.mp3",
-    "cover": "/images/yq.webp",
+    "audio": "/audios/我管不住我自己.mp3",
+    "cover": "/images/我管不住我自己.webp",
     "lyric": "暂无歌词"
   },
   {
     "id": 2,
-    "name": "蜃楼",
+    "name": "春雪",
     "singer": "周深",
-    "audio": "/audios/sl.mp3",
-    "cover": "/images/sl.webp",
+    "audio": "/audios/春雪.mp3",
+    "cover": "/images/春雪.webp",
     "lyric": "暂无歌词"
   },
   {
@@ -21,6 +21,22 @@
     "singer": "LE SSERAFIM",
     "audio": "/audios/SoCynical.mp3",
     "cover": "/images/SoCynical.webp",
+    "lyric": "暂无歌词"
+  },
+  {
+  "id": 4,
+  "name": "有趣",
+  "singer": "单依纯",
+  "audio": "/audios/yq.mp3",
+  "cover": "/images/yq.webp",
+  "lyric": "暂无歌词"
+  },
+  {
+    "id": 5,
+    "name": "蜃楼",
+    "singer": "周深",
+    "audio": "/audios/sl.mp3",
+    "cover": "/images/sl.webp",
     "lyric": "暂无歌词"
   }
 ]

@@ -6,6 +6,8 @@ import LocalSongs from '@/views/LocalSongs.vue'
 import ThemeView from '@/views/ThemeView.vue'
 import PlayListDetail from '@/views/PlayListDetail.vue'
 import LoginPage from '@/views/LoginPage.vue'
+import MusicPlayer from '@/components/MusicPlayer.vue'
+import ArtistView from '@/views/ArtistView.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +41,15 @@ const routes = [
         path: 'PlaylistDetail/:id', // 动态路由：传递歌单 ID
         name: 'PlayListDetail',
         component: PlayListDetail
+      },
+      {
+        path: 'artists',
+        name: 'Artists',
+        component: ArtistView
+      },
+      {
+        path: '/MusicPlayer',
+        component: MusicPlayer
       }
     ]
   },
@@ -51,13 +62,19 @@ const routes = [
     path: '/ThemeView',
     name: 'ThemeView',
     component: ThemeView
+  },
+  {
+    path: '/artists',
+    name: 'ArtistView',
+    component: ArtistView
   }
 ]
 
 // 启用 HTML5 History 模式（地址栏无 # 号）
 const router = new VueRouter({
   mode: 'history',
-  routes
+  // mode: 'hash',   // 哈希模式（默认，地址栏有 # 号）
+  routes: routes// 传入上面定义的路由规则（可简写为 routes）
 })
 
 export default router

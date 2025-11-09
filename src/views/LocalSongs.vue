@@ -1,12 +1,12 @@
 <template>
   <div class="local-songs-page">
-    <h1 class="page-title">本地歌曲</h1>
+  <h1 class="page-title">{{ pageTitle }}</h1>
 
     <!-- 歌曲列表 -->
     <div class="songs-list">
       <!-- 关键：添加 @dblclick 双击事件 -->
       <div
-        v-for="song in songs"
+        v-for="song in filteredSongs"
         :key="song.id"
         class="song-item card"
         @click="handleSongSelect(song)"
@@ -41,6 +41,18 @@ export default {
   mounted () {
     // 直接使用配置的路径，不需要额外处理
     this.songs = songsData
+  },
+  computed: {
+    // 根据路由 query singer 过滤歌曲
+    filteredSongs () {
+      const singer = this.$route && this.$route.query ? this.$route.query.singer : null
+      if (!singer) return this.songs
+      return this.songs.filter(s => s.singer === singer)
+    },
+    pageTitle () {
+      const singer = this.$route && this.$route.query ? this.$route.query.singer : null
+      return singer ? `歌手：${singer}` : '本地歌曲'
+    }
   },
   methods: {
     handleDoubleClick (song) {
